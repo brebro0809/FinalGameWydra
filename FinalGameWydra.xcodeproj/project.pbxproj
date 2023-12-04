@@ -1,0 +1,629 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F008437C2B1E739100843324 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F008437B2B1E739100843324 /* AppDelegate.swift */; };
+		F008437E2B1E739100843324 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F008437D2B1E739100843324 /* SceneDelegate.swift */; };
+		F00843802B1E739100843324 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F008437F2B1E739100843324 /* ViewController.swift */; };
+		F00843832B1E739100843324 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F00843812B1E739100843324 /* Main.storyboard */; };
+		F00843862B1E739100843324 /* FinalGameWydra.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F00843842B1E739100843324 /* FinalGameWydra.xcdatamodeld */; };
+		F00843882B1E739300843324 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F00843872B1E739300843324 /* Assets.xcassets */; };
+		F008438B2B1E739300843324 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F00843892B1E739300843324 /* LaunchScreen.storyboard */; };
+		F00843962B1E739300843324 /* FinalGameWydraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00843952B1E739300843324 /* FinalGameWydraTests.swift */; };
+		F00843A02B1E739300843324 /* FinalGameWydraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F008439F2B1E739300843324 /* FinalGameWydraUITests.swift */; };
+		F00843A22B1E739300843324 /* FinalGameWydraUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00843A12B1E739300843324 /* FinalGameWydraUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F00843922B1E739300843324 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F00843702B1E739100843324 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F00843772B1E739100843324;
+			remoteInfo = FinalGameWydra;
+		};
+		F008439C2B1E739300843324 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F00843702B1E739100843324 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F00843772B1E739100843324;
+			remoteInfo = FinalGameWydra;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F00843782B1E739100843324 /* FinalGameWydra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalGameWydra.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F008437B2B1E739100843324 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F008437D2B1E739100843324 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F008437F2B1E739100843324 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F00843822B1E739100843324 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F00843852B1E739100843324 /* FinalGameWydra.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FinalGameWydra.xcdatamodel; sourceTree = "<group>"; };
+		F00843872B1E739300843324 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F008438A2B1E739300843324 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F008438C2B1E739300843324 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F00843912B1E739300843324 /* FinalGameWydraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinalGameWydraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F00843952B1E739300843324 /* FinalGameWydraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalGameWydraTests.swift; sourceTree = "<group>"; };
+		F008439B2B1E739300843324 /* FinalGameWydraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinalGameWydraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F008439F2B1E739300843324 /* FinalGameWydraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalGameWydraUITests.swift; sourceTree = "<group>"; };
+		F00843A12B1E739300843324 /* FinalGameWydraUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalGameWydraUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F00843752B1E739100843324 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F008438E2B1E739300843324 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F00843982B1E739300843324 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F008436F2B1E739100843324 = {
+			isa = PBXGroup;
+			children = (
+				F008437A2B1E739100843324 /* FinalGameWydra */,
+				F00843942B1E739300843324 /* FinalGameWydraTests */,
+				F008439E2B1E739300843324 /* FinalGameWydraUITests */,
+				F00843792B1E739100843324 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F00843792B1E739100843324 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F00843782B1E739100843324 /* FinalGameWydra.app */,
+				F00843912B1E739300843324 /* FinalGameWydraTests.xctest */,
+				F008439B2B1E739300843324 /* FinalGameWydraUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F008437A2B1E739100843324 /* FinalGameWydra */ = {
+			isa = PBXGroup;
+			children = (
+				F008437B2B1E739100843324 /* AppDelegate.swift */,
+				F008437D2B1E739100843324 /* SceneDelegate.swift */,
+				F008437F2B1E739100843324 /* ViewController.swift */,
+				F00843812B1E739100843324 /* Main.storyboard */,
+				F00843872B1E739300843324 /* Assets.xcassets */,
+				F00843892B1E739300843324 /* LaunchScreen.storyboard */,
+				F008438C2B1E739300843324 /* Info.plist */,
+				F00843842B1E739100843324 /* FinalGameWydra.xcdatamodeld */,
+			);
+			path = FinalGameWydra;
+			sourceTree = "<group>";
+		};
+		F00843942B1E739300843324 /* FinalGameWydraTests */ = {
+			isa = PBXGroup;
+			children = (
+				F00843952B1E739300843324 /* FinalGameWydraTests.swift */,
+			);
+			path = FinalGameWydraTests;
+			sourceTree = "<group>";
+		};
+		F008439E2B1E739300843324 /* FinalGameWydraUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F008439F2B1E739300843324 /* FinalGameWydraUITests.swift */,
+				F00843A12B1E739300843324 /* FinalGameWydraUITestsLaunchTests.swift */,
+			);
+			path = FinalGameWydraUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F00843772B1E739100843324 /* FinalGameWydra */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F00843A52B1E739300843324 /* Build configuration list for PBXNativeTarget "FinalGameWydra" */;
+			buildPhases = (
+				F00843742B1E739100843324 /* Sources */,
+				F00843752B1E739100843324 /* Frameworks */,
+				F00843762B1E739100843324 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FinalGameWydra;
+			productName = FinalGameWydra;
+			productReference = F00843782B1E739100843324 /* FinalGameWydra.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F00843902B1E739300843324 /* FinalGameWydraTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F00843A82B1E739300843324 /* Build configuration list for PBXNativeTarget "FinalGameWydraTests" */;
+			buildPhases = (
+				F008438D2B1E739300843324 /* Sources */,
+				F008438E2B1E739300843324 /* Frameworks */,
+				F008438F2B1E739300843324 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F00843932B1E739300843324 /* PBXTargetDependency */,
+			);
+			name = FinalGameWydraTests;
+			productName = FinalGameWydraTests;
+			productReference = F00843912B1E739300843324 /* FinalGameWydraTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F008439A2B1E739300843324 /* FinalGameWydraUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F00843AB2B1E739300843324 /* Build configuration list for PBXNativeTarget "FinalGameWydraUITests" */;
+			buildPhases = (
+				F00843972B1E739300843324 /* Sources */,
+				F00843982B1E739300843324 /* Frameworks */,
+				F00843992B1E739300843324 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F008439D2B1E739300843324 /* PBXTargetDependency */,
+			);
+			name = FinalGameWydraUITests;
+			productName = FinalGameWydraUITests;
+			productReference = F008439B2B1E739300843324 /* FinalGameWydraUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F00843702B1E739100843324 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					F00843772B1E739100843324 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					F00843902B1E739300843324 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = F00843772B1E739100843324;
+					};
+					F008439A2B1E739300843324 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = F00843772B1E739100843324;
+					};
+				};
+			};
+			buildConfigurationList = F00843732B1E739100843324 /* Build configuration list for PBXProject "FinalGameWydra" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F008436F2B1E739100843324;
+			productRefGroup = F00843792B1E739100843324 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F00843772B1E739100843324 /* FinalGameWydra */,
+				F00843902B1E739300843324 /* FinalGameWydraTests */,
+				F008439A2B1E739300843324 /* FinalGameWydraUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F00843762B1E739100843324 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F008438B2B1E739300843324 /* LaunchScreen.storyboard in Resources */,
+				F00843882B1E739300843324 /* Assets.xcassets in Resources */,
+				F00843832B1E739100843324 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F008438F2B1E739300843324 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F00843992B1E739300843324 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F00843742B1E739100843324 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F00843802B1E739100843324 /* ViewController.swift in Sources */,
+				F008437C2B1E739100843324 /* AppDelegate.swift in Sources */,
+				F00843862B1E739100843324 /* FinalGameWydra.xcdatamodeld in Sources */,
+				F008437E2B1E739100843324 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F008438D2B1E739300843324 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F00843962B1E739300843324 /* FinalGameWydraTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F00843972B1E739300843324 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F00843A02B1E739300843324 /* FinalGameWydraUITests.swift in Sources */,
+				F00843A22B1E739300843324 /* FinalGameWydraUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F00843932B1E739300843324 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F00843772B1E739100843324 /* FinalGameWydra */;
+			targetProxy = F00843922B1E739300843324 /* PBXContainerItemProxy */;
+		};
+		F008439D2B1E739300843324 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F00843772B1E739100843324 /* FinalGameWydra */;
+			targetProxy = F008439C2B1E739300843324 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F00843812B1E739100843324 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F00843822B1E739100843324 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F00843892B1E739300843324 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F008438A2B1E739300843324 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F00843A32B1E739300843324 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F00843A42B1E739300843324 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F00843A62B1E739300843324 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8MKZAWVUCJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FinalGameWydra/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = clc.FinalGameWydra;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F00843A72B1E739300843324 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8MKZAWVUCJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FinalGameWydra/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = clc.FinalGameWydra;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F00843A92B1E739300843324 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8MKZAWVUCJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = clc.FinalGameWydraTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FinalGameWydra.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FinalGameWydra";
+			};
+			name = Debug;
+		};
+		F00843AA2B1E739300843324 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8MKZAWVUCJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = clc.FinalGameWydraTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FinalGameWydra.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FinalGameWydra";
+			};
+			name = Release;
+		};
+		F00843AC2B1E739300843324 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8MKZAWVUCJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = clc.FinalGameWydraUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FinalGameWydra;
+			};
+			name = Debug;
+		};
+		F00843AD2B1E739300843324 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8MKZAWVUCJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = clc.FinalGameWydraUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FinalGameWydra;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F00843732B1E739100843324 /* Build configuration list for PBXProject "FinalGameWydra" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F00843A32B1E739300843324 /* Debug */,
+				F00843A42B1E739300843324 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F00843A52B1E739300843324 /* Build configuration list for PBXNativeTarget "FinalGameWydra" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F00843A62B1E739300843324 /* Debug */,
+				F00843A72B1E739300843324 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F00843A82B1E739300843324 /* Build configuration list for PBXNativeTarget "FinalGameWydraTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F00843A92B1E739300843324 /* Debug */,
+				F00843AA2B1E739300843324 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F00843AB2B1E739300843324 /* Build configuration list for PBXNativeTarget "FinalGameWydraUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F00843AC2B1E739300843324 /* Debug */,
+				F00843AD2B1E739300843324 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F00843842B1E739100843324 /* FinalGameWydra.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F00843852B1E739100843324 /* FinalGameWydra.xcdatamodel */,
+			);
+			currentVersion = F00843852B1E739100843324 /* FinalGameWydra.xcdatamodel */;
+			path = FinalGameWydra.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F00843702B1E739100843324 /* Project object */;
+}
