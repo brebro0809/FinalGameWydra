@@ -18,6 +18,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var blocks = [Any]()
     
+    var clearedCells = [Int]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -28,16 +30,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         blocks.append(TBlock(x: 4, y: 1))
         
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
     }
     
     @objc func fire() {
         print("ran")
         var position = (blocks[0] as! TBlock).getPos()
-        cells[position[0]] = 0
-        cells[position[1]] = 0
-        cells[position[2]] = 0
-        cells[position[3]] = 0
+        clearedCells.append(position[0])
+        clearedCells.append(position[1])
+        clearedCells.append(position[2])
+        clearedCells.append(position[3])
+        for cell in clearedCells {
+            cells[cell] = 0
+        }
+        clearedCells = [Int]()
         (blocks[0] as! TBlock).moveDown()
         position = (blocks[0] as! TBlock).getPos()
         cells[position[0]] = 1
@@ -45,10 +51,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cells[position[2]] = 1
         cells[position[3]] = 1
         gameBoard.reloadData()
-    }
-    
-    func updateBoard() {
-        print(cells[0])
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -67,11 +69,30 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.layer.borderWidth = 2
         return cell
     }
+    @IBAction func leftButtonPress(_ sender: UIButton) {
+        var position = (blocks[0] as! TBlock).getPos()
+        clearedCells.append(position[0])
+        clearedCells.append(position[1])
+        clearedCells.append(position[2])
+        clearedCells.append(position[3])
+        
+        (blocks[0] as! TBlock).moveLeft()
+    }
+    @IBAction func rightButtonPress(_ sender: UIButton) {
+        var position = (blocks[0] as! TBlock).getPos()
+        clearedCells.append(position[0])
+        clearedCells.append(position[1])
+        clearedCells.append(position[2])
+        clearedCells.append(position[3])
+        
+        (blocks[0] as! TBlock).moveRight()
+    }
 }
 
 class TBlock {
     var x: Int
     var y: Int
+    var isGrounded = false
     
     init(x: Int, y: Int) {
         self.x = x
@@ -79,7 +100,25 @@ class TBlock {
     }
     
     func moveDown() {
+        if (y + 1 > 19) {
+            self.isGrounded = true
+            return
+        }
         y += 1
+    }
+    
+    func moveLeft() {
+        if (x - 1 < 1 || isGrounded) {
+            return
+        }
+        x -= 1
+    }
+    
+    func moveRight() {
+        if (x + 1 > 8 || isGrounded) {
+            return
+        }
+        x += 1
     }
     
     func getPos() -> [Int] {
