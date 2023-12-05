@@ -16,6 +16,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var cells = [Int](repeating: 0, count: 200)
     
+    @IBOutlet weak var debugButton: UIButton!
+    
     var blocks = [Any]()
     
     var clearedCells = [Int]()
@@ -28,6 +30,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         gameBoard.layer.borderColor = CGColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
         gameBoard.layer.borderWidth = 4
         
+        debugButton.showsMenuAsPrimaryAction = true
+        debugButton.changesSelectionAsPrimaryAction = true
+        
+        let optionClosure = {(action: UIAction) in
+            switch action.title {
+            case "T-Block":
+                self.blocks.append(TBlock(x: 4, y: 1))
+            default:
+                print("AHHH")
+            }
+        }
+        
+        debugButton.menu = UIMenu(children: [
+            UIAction(title: "T-Block", handler: optionClosure)
+        ])
         blocks.append(TBlock(x: 4, y: 1))
         
         timer = Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
@@ -35,21 +52,39 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @objc func fire() {
         print("ran")
-        var position = (blocks[0] as! TBlock).getPos()
-        clearedCells.append(position[0])
-        clearedCells.append(position[1])
-        clearedCells.append(position[2])
-        clearedCells.append(position[3])
+        
+        for block in blocks {
+            let position = (block as! TBlock).getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+        }
+        
         for cell in clearedCells {
             cells[cell] = 0
         }
         clearedCells = [Int]()
-        (blocks[0] as! TBlock).moveDown()
-        position = (blocks[0] as! TBlock).getPos()
-        cells[position[0]] = 1
-        cells[position[1]] = 1
-        cells[position[2]] = 1
-        cells[position[3]] = 1
+        
+        for block in blocks {
+            var position = (block as! TBlock).getPos()
+            var temp = [Int]()
+            for index in position {
+                if (index + 10 < 199) {
+                    temp.append(cells[index + 10])
+                }
+            }
+            
+            (block as! TBlock).moveDown(current: temp)
+            
+            position = (block as! TBlock).getPos()
+            cells[position[0]] = 1
+            cells[position[1]] = 1
+            cells[position[2]] = 1
+            cells[position[3]] = 1
+        }
+        
+        
         gameBoard.reloadData()
     }
     
@@ -70,22 +105,22 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return cell
     }
     @IBAction func leftButtonPress(_ sender: UIButton) {
-        var position = (blocks[0] as! TBlock).getPos()
+        let position = (blocks[blocks.count - 1] as! TBlock).getPos()
         clearedCells.append(position[0])
         clearedCells.append(position[1])
         clearedCells.append(position[2])
         clearedCells.append(position[3])
         
-        (blocks[0] as! TBlock).moveLeft()
+        (blocks[blocks.count - 1] as! TBlock).moveLeft()
     }
     @IBAction func rightButtonPress(_ sender: UIButton) {
-        var position = (blocks[0] as! TBlock).getPos()
+        let position = (blocks[blocks.count - 1] as! TBlock).getPos()
         clearedCells.append(position[0])
         clearedCells.append(position[1])
         clearedCells.append(position[2])
         clearedCells.append(position[3])
         
-        (blocks[0] as! TBlock).moveRight()
+        (blocks[blocks.count - 1] as! TBlock).moveRight()
     }
 }
 
@@ -99,9 +134,12 @@ class TBlock {
         self.y = y
     }
     
-    func moveDown() {
+    func moveDown(current: [Int]) {
         if (y + 1 > 19) {
             self.isGrounded = true
+            return
+        }
+        if (current.contains(1)) {
             return
         }
         y += 1
