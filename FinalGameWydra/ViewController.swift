@@ -53,7 +53,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     @objc func fire() {
-        print("ran")
         
         for block in blocks {
             let position = (block as! TBlock).getPos()
@@ -121,7 +120,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     @IBAction func rotatePress(_ sender: UIButton) {
+        let position = (blocks[blocks.count - 1] as! TBlock).getPos()
+        clearedCells.append(position[0])
+        clearedCells.append(position[1])
+        clearedCells.append(position[2])
+        clearedCells.append(position[3])
         
+        (blocks[blocks.count - 1] as! TBlock).rotate()
     }
 }
 
@@ -137,36 +142,67 @@ class TBlock {
     }
     
     func moveDown() {
-        if (y + 1 > 19) {
+        if (direction == 0 && y + 1 > 19) {
             self.isGrounded = true
             return
-        }
-        
-        var temp = [Int]()
-        for num in self.getPos() {
-            var digits = String(num).compactMap({Int(String($0))})
-            digits.popLast()
-            temp.append(digits.reduce(0, { $0 * 10 + $1 }))
-        }
-        
-        if (AppDefaults.cells[temp.sorted()[0]] == 1) {
+        } else if (direction == 1 && y + 2 > 19) {
+            self.isGrounded = true
             return
+        } else if (direction == 2 && y + 2 > 19) {
+            return
+        }
+        
+        if (direction == 0) {
+            if (AppDefaults.cells[(y + 1) * 10 + x] == 1 || AppDefaults.cells[(y + 1) * 10 + x - 1] == 1 || AppDefaults.cells[(y + 1) * 10 + x + 1] == 1) {
+                return
+            }
+        } else if (direction == 1) {
+            if (AppDefaults.cells[(y + 2) * 10 + x] == 1 || AppDefaults.cells[(y + 1) * 10 + x + 1] == 1) {
+                return
+            }
+        } else if (direction == 2) {
+            
         }
         
         y += 1
     }
     
-    func moveLeft(current: Int) {
-        if (x - 1 < 1 || isGrounded) {
+    func rotate() {
+        if (isGrounded) {
             return
         }
+        
+        if(direction == 2){
+            direction = 0
+        } else {
+            direction += 1
+        }
+    }
+    
+    func moveLeft(current: Int) {
+        if (direction == 0 && (x - 1 <= 0 || isGrounded)) {
+            return
+        }
+        if (direction == 1 && (x - 1 < 0 || isGrounded)) {
+            return
+        }
+        
+        if (direction == 0 && (AppDefaults.cells[y * 10 + x - 2] != 0)) {
+            return
+        }
+        
         x -= 1
     }
     
     func moveRight() {
-        if (x + 1 > 8 || isGrounded) {
+        if ((direction == 0 || direction == 1) && (x + 1 > 8 || isGrounded)) {
             return
         }
+        
+        if (direction == 0 && (AppDefaults.cells[y * 10 + x + 2] != 0)) {
+            return
+        }
+        
         x += 1
     }
     
@@ -178,10 +214,15 @@ class TBlock {
             final.append(y * 10 + x)
             final.append(y * 10 + x + 1)
         } else if (self.direction == 1) {
-            final.append(((y - 1) * 10) + x)
-            final.append(y * 10 + x - 1)
-            final.append(y * 10 + x)
             final.append(y * 10 + x + 1)
+            final.append((y - 1) * 10 + x)
+            final.append(y * 10 + x)
+            final.append((y + 1) * 10 + x)
+        } else if (self.direction == 2) {
+            final.append(y * 10 + x + 1)
+            final.append((y - 1) * 10 + x)
+            final.append(y * 10 + x)
+            final.append((y + 1) * 10 + x)
         }
         return final
     }
