@@ -8,13 +8,15 @@
 import UIKit
 import Foundation
 
+class AppDefaults {
+    static var cells = [Int](repeating: 0, count: 200)
+}
+
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var gameBoard: UICollectionView!
     
     var timer = Timer()
-    
-    var cells = [Int](repeating: 0, count: 200)
     
     @IBOutlet weak var debugButton: UIButton!
     
@@ -62,26 +64,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         
         for cell in clearedCells {
-            cells[cell] = 0
+            AppDefaults.cells[cell] = 0
         }
         clearedCells = [Int]()
         
         for block in blocks {
             var position = (block as! TBlock).getPos()
-            var temp = [Int]()
-            for index in position {
-                if (index + 10 < 199) {
-                    temp.append(cells[index + 10])
-                }
-            }
             
-            (block as! TBlock).moveDown(current: temp)
+            
+            (block as! TBlock).moveDown()
             
             position = (block as! TBlock).getPos()
-            cells[position[0]] = 1
-            cells[position[1]] = 1
-            cells[position[2]] = 1
-            cells[position[3]] = 1
+            AppDefaults.cells[position[0]] = 1
+            AppDefaults.cells[position[1]] = 1
+            AppDefaults.cells[position[2]] = 1
+            AppDefaults.cells[position[3]] = 1
         }
         
         
@@ -94,7 +91,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = gameBoard.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath)
-        if(cells[indexPath.item] == 0){
+        if(AppDefaults.cells[indexPath.item] == 0) {
             cell.backgroundColor = UIColor.clear
         } else {
             cell.backgroundColor = UIColor(red: 0.251, green: 0.506, blue: 0.91, alpha: 1)
@@ -111,7 +108,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         clearedCells.append(position[2])
         clearedCells.append(position[3])
         
-        (blocks[blocks.count - 1] as! TBlock).moveLeft()
+        (blocks[blocks.count - 1] as! TBlock).moveLeft(current: 1)
     }
     @IBAction func rightButtonPress(_ sender: UIButton) {
         let position = (blocks[blocks.count - 1] as! TBlock).getPos()
@@ -122,30 +119,44 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         (blocks[blocks.count - 1] as! TBlock).moveRight()
     }
+    
+    @IBAction func rotatePress(_ sender: UIButton) {
+        
+    }
 }
 
 class TBlock {
     var x: Int
     var y: Int
     var isGrounded = false
+    var direction = 0
     
     init(x: Int, y: Int) {
         self.x = x
         self.y = y
     }
     
-    func moveDown(current: [Int]) {
+    func moveDown() {
         if (y + 1 > 19) {
             self.isGrounded = true
             return
         }
-        if (current.contains(1)) {
+        
+        var temp = [Int]()
+        for num in self.getPos() {
+            var digits = String(num).compactMap({Int(String($0))})
+            digits.popLast()
+            temp.append(digits.reduce(0, { $0 * 10 + $1 }))
+        }
+        
+        if (AppDefaults.cells[temp.sorted()[0]] == 1) {
             return
         }
+        
         y += 1
     }
     
-    func moveLeft() {
+    func moveLeft(current: Int) {
         if (x - 1 < 1 || isGrounded) {
             return
         }
@@ -161,10 +172,17 @@ class TBlock {
     
     func getPos() -> [Int] {
         var final = [Int]()
-        final.append(((y - 1) * 10) + x)
-        final.append(y * 10 + x - 1)
-        final.append(y * 10 + x)
-        final.append(y * 10 + x + 1)
+        if (self.direction == 0) {
+            final.append(((y - 1) * 10) + x)
+            final.append(y * 10 + x - 1)
+            final.append(y * 10 + x)
+            final.append(y * 10 + x + 1)
+        } else if (self.direction == 1) {
+            final.append(((y - 1) * 10) + x)
+            final.append(y * 10 + x - 1)
+            final.append(y * 10 + x)
+            final.append(y * 10 + x + 1)
+        }
         return final
     }
 }
