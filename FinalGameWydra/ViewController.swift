@@ -153,15 +153,17 @@ class TBlock {
         }
         
         if (direction == 0) {
-            if (AppDefaults.cells[(y + 1) * 10 + x] == 1 || AppDefaults.cells[(y + 1) * 10 + x - 1] == 1 || AppDefaults.cells[(y + 1) * 10 + x + 1] == 1) {
+            if (AppDefaults.cells[(y + 1) * 10 + x] != 0 || AppDefaults.cells[(y + 1) * 10 + x - 1] != 0 || AppDefaults.cells[(y + 1) * 10 + x + 1] != 0) {
                 return
             }
         } else if (direction == 1) {
-            if (AppDefaults.cells[(y + 2) * 10 + x] == 1 || AppDefaults.cells[(y + 1) * 10 + x + 1] == 1) {
+            if (AppDefaults.cells[(y + 2) * 10 + x] != 0 || AppDefaults.cells[(y + 1) * 10 + x + 1] != 0) {
                 return
             }
         } else if (direction == 2) {
-            
+            if (AppDefaults.cells[(y + 2) * 10 + x] != 0 || AppDefaults.cells[(y + 1) * 10 + x + 1] != 0 || AppDefaults.cells[(y + 1) * 10 + x - 1] != 0) {
+                return
+            }
         }
         
         y += 1
@@ -172,7 +174,24 @@ class TBlock {
             return
         }
         
-        if(direction == 2){
+        switch direction {
+        case 0:
+            if (AppDefaults.cells[(y + 1) * 10 + x] != 0) {
+                return
+            }
+        case 1:
+            if (AppDefaults.cells[y * 10 + x - 1] != 0) {
+                return
+            }
+        case 2:
+            if (AppDefaults.cells[((y - 1) * 10) + x] != 0) {
+                return
+            }
+        default:
+            print(":(")
+        }
+        
+        if(direction == 3){
             direction = 0
         } else {
             direction += 1
@@ -180,14 +199,23 @@ class TBlock {
     }
     
     func moveLeft(current: Int) {
-        if (direction == 0 && (x - 1 <= 0 || isGrounded)) {
+        if ((direction == 0 || direction == 2) && (x - 1 <= 0 || isGrounded)) {
             return
         }
+        
         if (direction == 1 && (x - 1 < 0 || isGrounded)) {
             return
         }
         
-        if (direction == 0 && (AppDefaults.cells[y * 10 + x - 2] != 0)) {
+        if (direction == 0 && ((AppDefaults.cells[y * 10 + x - 2] != 0) || (AppDefaults.cells[(y - 1) * 10 + x - 1] != 0))) {
+            return
+        }
+        
+        if (direction == 1 && ((AppDefaults.cells[y * 10 + x - 2] != 0) || (AppDefaults.cells[(y - 1) * 10 + x - 2] != 0) || (AppDefaults.cells[(y + 1) * 10 + x - 2] != 0))) {
+            return
+        }
+        
+        if (direction == 2 && ((AppDefaults.cells[y * 10 + x - 2] != 0) || (AppDefaults.cells[(y + 1) * 10 + x - 1] != 0))) {
             return
         }
         
@@ -195,11 +223,19 @@ class TBlock {
     }
     
     func moveRight() {
-        if ((direction == 0 || direction == 1) && (x + 1 > 8 || isGrounded)) {
+        if ((direction == 0 || direction == 1 || direction == 2) && (x + 1 > 8 || isGrounded)) {
             return
         }
         
         if (direction == 0 && (AppDefaults.cells[y * 10 + x + 2] != 0)) {
+            return
+        }
+        
+        if (direction == 1 && ((AppDefaults.cells[y * 10 + x + 2] != 0) || (AppDefaults.cells[(y - 1) * 10 + x + 1] != 0) || (AppDefaults.cells[(y + 1) * 10 + x + 1] != 0))) {
+            return
+        }
+        
+        if (direction == 2 && ((AppDefaults.cells[y * 10 + x + 2] != 0) || (AppDefaults.cells[(y + 1) * 10 + x + 1] != 0))) {
             return
         }
         
@@ -219,10 +255,15 @@ class TBlock {
             final.append(y * 10 + x)
             final.append((y + 1) * 10 + x)
         } else if (self.direction == 2) {
+            final.append(((y + 1) * 10) + x)
             final.append(y * 10 + x + 1)
-            final.append((y - 1) * 10 + x)
             final.append(y * 10 + x)
-            final.append((y + 1) * 10 + x)
+            final.append(y * 10 + x - 1)
+        } else if (self.direction == 3) {
+            final.append(y * 10 + x - 1)
+            final.append((y + 1) * 10 + x - 1)
+            final.append(y * 10 + x)
+            final.append(y * 10 + x + 1)
         }
         return final
     }
