@@ -17,6 +17,8 @@
 		F00843962B1E739300843324 /* FinalGameWydraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00843952B1E739300843324 /* FinalGameWydraTests.swift */; };
 		F00843A02B1E739300843324 /* FinalGameWydraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F008439F2B1E739300843324 /* FinalGameWydraUITests.swift */; };
 		F00843A22B1E739300843324 /* FinalGameWydraUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00843A12B1E739300843324 /* FinalGameWydraUITestsLaunchTests.swift */; };
+		F044A01E2B235913002D0D99 /* TBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044A01D2B235913002D0D99 /* TBlock.swift */; };
+		F044A0202B23594A002D0D99 /* RLBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044A01F2B23594A002D0D99 /* RLBlock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		F008439B2B1E739300843324 /* FinalGameWydraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinalGameWydraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F008439F2B1E739300843324 /* FinalGameWydraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalGameWydraUITests.swift; sourceTree = "<group>"; };
 		F00843A12B1E739300843324 /* FinalGameWydraUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalGameWydraUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F044A01D2B235913002D0D99 /* TBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBlock.swift; sourceTree = "<group>"; };
+		F044A01F2B23594A002D0D99 /* RLBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLBlock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,8 @@
 				F008437B2B1E739100843324 /* AppDelegate.swift */,
 				F008437D2B1E739100843324 /* SceneDelegate.swift */,
 				F008437F2B1E739100843324 /* ViewController.swift */,
+				F044A01F2B23594A002D0D99 /* RLBlock.swift */,
+				F044A01D2B235913002D0D99 /* TBlock.swift */,
 				F00843812B1E739100843324 /* Main.storyboard */,
 				F00843872B1E739300843324 /* Assets.xcassets */,
 				F00843892B1E739300843324 /* LaunchScreen.storyboard */,
@@ -262,9 +268,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F00843802B1E739100843324 /* ViewController.swift in Sources */,
+				F044A0202B23594A002D0D99 /* RLBlock.swift in Sources */,
 				F008437C2B1E739100843324 /* AppDelegate.swift in Sources */,
 				F00843862B1E739100843324 /* FinalGameWydra.xcdatamodeld in Sources */,
 				F008437E2B1E739100843324 /* SceneDelegate.swift in Sources */,
+				F044A01E2B235913002D0D99 /* TBlock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

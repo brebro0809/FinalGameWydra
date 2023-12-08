@@ -50,7 +50,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             UIAction(title: "T-Block", handler: optionClosure),
             UIAction(title: "Right L-Block", handler: optionClosure)
         ])
-        blocks.append(TBlock(x: 4, y: 1))
         
         timer = Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
     }
@@ -94,6 +93,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 AppDefaults.cells[position[1]] = 1
                 AppDefaults.cells[position[2]] = 1
                 AppDefaults.cells[position[3]] = 1
+                continue
             }
             if let temp = block as? RLBlock {
                 var position = temp.getPos()
@@ -106,6 +106,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 AppDefaults.cells[position[1]] = 2
                 AppDefaults.cells[position[2]] = 2
                 AppDefaults.cells[position[3]] = 2
+                continue
             }
         }
         
@@ -191,263 +192,5 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             block.rotate()
         }
-    }
-}
-
-class TBlock {
-    var x: Int
-    var y: Int
-    var isGrounded = false
-    var direction = 0
-    
-    init(x: Int, y: Int) {
-        self.x = x
-        self.y = y
-    }
-    
-    func moveDown() {
-        if (direction == 0 && y + 1 > 19) {
-            self.isGrounded = true
-            return
-        } else if ((direction == 1 || direction == 3) && y + 2 > 19) {
-            self.isGrounded = true
-            return
-        } else if (direction == 2 && y + 2 > 19) {
-            return
-        }
-        
-        if (direction == 0) {
-            if (AppDefaults.cells[(y + 1) * 10 + x] != 0 || AppDefaults.cells[(y + 1) * 10 + x - 1] != 0 || AppDefaults.cells[(y + 1) * 10 + x + 1] != 0) {
-                self.isGrounded = true
-                return
-            }
-        } else if (direction == 1) {
-            if (AppDefaults.cells[(y + 2) * 10 + x] != 0 || AppDefaults.cells[(y + 1) * 10 + x + 1] != 0) {
-                self.isGrounded = true
-                return
-            }
-        } else if (direction == 2) {
-            if (AppDefaults.cells[(y + 2) * 10 + x] != 0 || AppDefaults.cells[(y + 1) * 10 + x + 1] != 0 || AppDefaults.cells[(y + 1) * 10 + x - 1] != 0) {
-                self.isGrounded = true
-                return
-            }
-        } else if (direction == 3) {
-            if (AppDefaults.cells[(y + 2) * 10 + x] != 0 || AppDefaults.cells[(y + 1) * 10 + x - 1] != 0) {
-                self.isGrounded = true
-                return
-            }
-        }
-        
-        y += 1
-    }
-    
-    func rotate() {
-        if (isGrounded) {
-            return
-        }
-        
-        switch direction {
-        case 0:
-            if (AppDefaults.cells[(y + 1) * 10 + x] != 0) {
-                return
-            }
-        case 1:
-            if (AppDefaults.cells[y * 10 + x - 1] != 0) {
-                return
-            }
-        case 2:
-            if (AppDefaults.cells[((y - 1) * 10) + x] != 0) {
-                return
-            }
-        case 3:
-            if (AppDefaults.cells[y * 10 + x + 1] != 0) {
-                return
-            }
-        default:
-            print(":(")
-        }
-        
-        if(direction == 3){
-            direction = 0
-        } else {
-            direction += 1
-        }
-    }
-    
-    func moveLeft() {
-        if ((direction == 0 || direction == 2 || direction == 3) && (x - 1 <= 0 || isGrounded)) {
-            return
-        }
-        
-        if (direction == 1 && (x - 1 < 0 || isGrounded)) {
-            return
-        }
-        
-        if (direction == 0 && ((AppDefaults.cells[y * 10 + x - 2] != 0) || (AppDefaults.cells[(y - 1) * 10 + x - 1] != 0))) {
-            return
-        }
-        
-        if (direction == 1 && ((AppDefaults.cells[y * 10 + x - 1] != 0) || (AppDefaults.cells[(y - 1) * 10 + x - 1] != 0) || (AppDefaults.cells[(y + 1) * 10 + x - 1] != 0))) {
-            return
-        }
-        
-        if (direction == 2 && ((AppDefaults.cells[y * 10 + x - 2] != 0) || (AppDefaults.cells[(y + 1) * 10 + x - 1] != 0))) {
-            return
-        }
-        
-        if (direction == 3 && ((AppDefaults.cells[y * 10 + x - 2] != 0) || (AppDefaults.cells[(y - 1) * 10 + x - 1] != 0) || (AppDefaults.cells[(y + 1) * 10 + x - 1] != 0))) {
-            return
-        }
-        
-        x -= 1
-    }
-    
-    func moveRight() {
-        if ((direction == 0 || direction == 1 || direction == 2) && (x + 1 > 8 || isGrounded)) {
-            return
-        }
-        
-        if (direction == 3 && (x + 1 > 9 || isGrounded)) {
-            return
-        }
-        
-        if (direction == 0 && (AppDefaults.cells[y * 10 + x + 2] != 0)) {
-            return
-        }
-        
-        if (direction == 1 && ((AppDefaults.cells[y * 10 + x + 2] != 0) || (AppDefaults.cells[(y - 1) * 10 + x + 1] != 0) || (AppDefaults.cells[(y + 1) * 10 + x + 1] != 0))) {
-            return
-        }
-        
-        if (direction == 2 && ((AppDefaults.cells[y * 10 + x + 2] != 0) || (AppDefaults.cells[(y + 1) * 10 + x + 1] != 0))) {
-            return
-        }
-        
-        if (direction == 3 && ((AppDefaults.cells[y * 10 + x + 1] != 0) || (AppDefaults.cells[(y - 1) * 10 + x + 1] != 0) || (AppDefaults.cells[(y + 1) * 10 + x + 1] != 0))) {
-            return
-        }
-        
-        x += 1
-    }
-    
-    func getPos() -> [Int] {
-        var final = [Int]()
-        if (self.direction == 0) {
-            final.append(((y - 1) * 10) + x)
-            final.append(y * 10 + x - 1)
-            final.append(y * 10 + x)
-            final.append(y * 10 + x + 1)
-        } else if (self.direction == 1) {
-            final.append(y * 10 + x + 1)
-            final.append((y - 1) * 10 + x)
-            final.append(y * 10 + x)
-            final.append((y + 1) * 10 + x)
-        } else if (self.direction == 2) {
-            final.append(((y + 1) * 10) + x)
-            final.append(y * 10 + x + 1)
-            final.append(y * 10 + x)
-            final.append(y * 10 + x - 1)
-        } else if (self.direction == 3) {
-            final.append(y * 10 + x - 1)
-            final.append((y + 1) * 10 + x)
-            final.append(y * 10 + x)
-            final.append((y - 1) * 10 + x)
-        }
-        return final
-    }
-}
-
-class RLBlock {
-    var x: Int
-    var y: Int
-    var isGrounded = false
-    var direction = 0
-    
-    init(x: Int, y: Int) {
-        self.x = x
-        self.y = y
-    }
-    
-    func moveDown() {
-        if (direction == 0 && y - 2 < 19) {
-            return
-        }
-        
-        y += 1
-    }
-    
-    func rotate() {
-        if (isGrounded) {
-            return
-        }
-        
-        switch direction {
-        case 0:
-            if (AppDefaults.cells[(y + 1) * 10 + x] != 0) {
-                return
-            }
-        case 1:
-            if (AppDefaults.cells[y * 10 + x - 1] != 0) {
-                return
-            }
-        case 2:
-            if (AppDefaults.cells[((y - 1) * 10) + x] != 0) {
-                return
-            }
-        case 3:
-            if (AppDefaults.cells[y * 10 + x + 1] != 0) {
-                return
-            }
-        default:
-            print(":(")
-        }
-        
-        if(direction == 3){
-            direction = 0
-        } else {
-            direction += 1
-        }
-    }
-    
-    func moveLeft() {
-        if (direction == 0 && x - 1 < 1) {
-            return
-        }
-        
-        x -= 1
-    }
-    
-    func moveRight() {
-        if (direction == 0 && x + 1 >= 9) {
-            return
-        }
-        
-        x += 1
-    }
-    
-    func getPos() -> [Int] {
-        var final = [Int]()
-        if (self.direction == 0) {
-            final.append(y * 10 + x)
-            final.append(y * 10 + x + 1)
-            final.append(y * 10 + x - 1)
-            final.append((y - 1) * 10 + x - 1)
-        } else if (self.direction == 1) {
-            final.append(y * 10 + x + 1)
-            final.append((y - 1) * 10 + x)
-            final.append(y * 10 + x)
-            final.append((y + 1) * 10 + x)
-        } else if (self.direction == 2) {
-            final.append(((y + 1) * 10) + x)
-            final.append(y * 10 + x + 1)
-            final.append(y * 10 + x)
-            final.append(y * 10 + x - 1)
-        } else if (self.direction == 3) {
-            final.append(y * 10 + x - 1)
-            final.append((y + 1) * 10 + x)
-            final.append(y * 10 + x)
-            final.append((y - 1) * 10 + x)
-        }
-        return final
     }
 }
