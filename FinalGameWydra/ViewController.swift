@@ -125,7 +125,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         } else if (AppDefaults.cells[indexPath.item] == 1) {
             cell.backgroundColor = UIColor(red: 0.757, green: 0, blue: 1, alpha: 1)
         } else if (AppDefaults.cells[indexPath.item] == 2) {
-            cell.backgroundColor = UIColor(red: 0.165, green: 0.196, blue: 0.98, alpha: 1)
+            cell.backgroundColor = UIColor(red: 0.255, green: 0.408, blue: 1, alpha: 1)
         }
         
         cell.layer.borderColor = CGColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
