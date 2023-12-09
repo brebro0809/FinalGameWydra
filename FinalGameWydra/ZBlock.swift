@@ -1,5 +1,5 @@
 //
-//  TBlock.swift
+//  ZBlock.swift
 //  FinalGameWydra
 //
 //  Created by Brian Wydra on 12/8/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TBlock {
+class ZBlock {
     var x: Int
     var y: Int
     var isGrounded = false
@@ -19,13 +19,16 @@ class TBlock {
     }
     
     func moveDown() {
+        if (isGrounded) {
+            return
+        }
+        
         if (direction == 0 && y + 1 > 19) {
             self.isGrounded = true
             return
-        } else if ((direction == 1 || direction == 3) && y + 2 > 19) {
+        }
+        if ((direction == 1 || direction == 2 || direction == 3) && y + 2 > 19) {
             self.isGrounded = true
-            return
-        } else if (direction == 2 && y + 2 > 19) {
             return
         }
         
@@ -61,25 +64,19 @@ class TBlock {
         
         switch direction {
         case 0:
-            if (AppDefaults.cells[(y + 1) * 10 + x] != 0) {
+            if (AppDefaults.cells[(y + 1) * 10 + x] != 0 || AppDefaults.cells[(y - 1) * 10 + x + 1] != 0) {
                 return
             }
         case 1:
-            if (x - 1 < 0 || isGrounded) {
-                return
-            }
-            if (AppDefaults.cells[y * 10 + x - 1] != 0) {
+            if (AppDefaults.cells[y * 10 + x - 1] != 0 || AppDefaults.cells[(y + 1) * 10 + x + 1] != 0) {
                 return
             }
         case 2:
-            if (AppDefaults.cells[((y - 1) * 10) + x] != 0) {
+            if (AppDefaults.cells[(y - 1) * 10 + x] != 0 || AppDefaults.cells[(y + 1) * 10 + x - 1] != 0) {
                 return
             }
         case 3:
-            if (direction == 3 && (x + 1 > 9 || isGrounded)) {
-                return
-            }
-            if (AppDefaults.cells[y * 10 + x + 1] != 0) {
+            if (AppDefaults.cells[y * 10 + x + 1] != 0 || AppDefaults.cells[(y - 1) * 10 + x - 1] != 0) {
                 return
             }
         default:
@@ -102,11 +99,11 @@ class TBlock {
             return
         }
         
-        if (direction == 0 && ((AppDefaults.cells[y * 10 + x - 2] != 0) || (AppDefaults.cells[(y - 1) * 10 + x - 1] != 0))) {
+        if (direction == 0 && ((AppDefaults.cells[y * 10 + x - 1] != 0) || (AppDefaults.cells[(y - 1) * 10 + x - 2] != 0))) {
             return
         }
         
-        if (direction == 1 && ((AppDefaults.cells[y * 10 + x - 1] != 0) || (AppDefaults.cells[(y - 1) * 10 + x - 1] != 0) || (AppDefaults.cells[(y + 1) * 10 + x - 1] != 0))) {
+        if (direction == 1 && ((AppDefaults.cells[y * 10 + x - 1] != 0) || (AppDefaults.cells[(y - 1) * 10 + x] != 0) || (AppDefaults.cells[(y + 1) * 10 + x - 1] != 0))) {
             return
         }
         
@@ -114,7 +111,7 @@ class TBlock {
             return
         }
         
-        if (direction == 3 && ((AppDefaults.cells[y * 10 + x - 2] != 0) || (AppDefaults.cells[(y - 1) * 10 + x - 1] != 0) || (AppDefaults.cells[(y + 1) * 10 + x - 1] != 0))) {
+        if (direction == 3 && ((AppDefaults.cells[y * 10 + x - 2] != 0) || (AppDefaults.cells[(y - 1) * 10 + x - 2] != 0) || (AppDefaults.cells[(y + 1) * 10 + x - 1] != 0))) {
             return
         }
         
@@ -130,19 +127,19 @@ class TBlock {
             return
         }
         
-        if (direction == 0 && ((AppDefaults.cells[y * 10 + x + 2] != 0) || (AppDefaults.cells[(y - 1) * 10 + x + 1] != 0))) {
+        if (direction == 0 && (AppDefaults.cells[y * 10 + x + 2] != 0 || AppDefaults.cells[(y - 1) * 10 + x + 1] != 0)) {
             return
         }
         
-        if (direction == 1 && ((AppDefaults.cells[y * 10 + x + 2] != 0) || (AppDefaults.cells[(y - 1) * 10 + x + 1] != 0) || (AppDefaults.cells[(y + 1) * 10 + x + 1] != 0))) {
+        if (direction == 1 && ((AppDefaults.cells[y * 10 + x + 2] != 0) || (AppDefaults.cells[(y - 1) * 10 + x + 2] != 0) || (AppDefaults.cells[(y + 1) * 10 + x + 1] != 0))) {
             return
         }
         
-        if (direction == 2 && ((AppDefaults.cells[y * 10 + x + 2] != 0) || (AppDefaults.cells[(y + 1) * 10 + x + 1] != 0))) {
+        if (direction == 2 && ((AppDefaults.cells[y * 10 + x + 1] != 0) || (AppDefaults.cells[(y + 1) * 10 + x + 2] != 0))) {
             return
         }
         
-        if (direction == 3 && ((AppDefaults.cells[y * 10 + x + 1] != 0) || (AppDefaults.cells[(y - 1) * 10 + x + 1] != 0) || (AppDefaults.cells[(y + 1) * 10 + x + 1] != 0))) {
+        if (direction == 3 && ((AppDefaults.cells[y * 10 + x + 1] != 0) || (AppDefaults.cells[(y - 1) * 10 + x + 1] != 0) || (AppDefaults.cells[(y + 1) * 10 + x] != 0))) {
             return
         }
         
@@ -152,30 +149,30 @@ class TBlock {
     func getPos() -> [Int] {
         var final = [Int]()
         if (self.direction == 0) {
-            final.append(((y - 1) * 10) + x)
-            final.append(y * 10 + x - 1)
             final.append(y * 10 + x)
             final.append(y * 10 + x + 1)
+            final.append((y - 1) * 10 + x)
+            final.append((y - 1) * 10 + x - 1)
         } else if (self.direction == 1) {
-            final.append(y * 10 + x + 1)
-            final.append((y - 1) * 10 + x)
             final.append(y * 10 + x)
             final.append((y + 1) * 10 + x)
+            final.append(y * 10 + x + 1)
+            final.append((y - 1) * 10 + x + 1)
         } else if (self.direction == 2) {
-            final.append(((y + 1) * 10) + x)
-            final.append(y * 10 + x + 1)
             final.append(y * 10 + x)
-            final.append(y * 10 + x - 1)
-        } else if (self.direction == 3) {
             final.append(y * 10 + x - 1)
             final.append((y + 1) * 10 + x)
+            final.append((y + 1) * 10 + x + 1)
+        } else if (self.direction == 3) {
             final.append(y * 10 + x)
             final.append((y - 1) * 10 + x)
+            final.append(y * 10 + x - 1)
+            final.append((y + 1) * 10 + x - 1)
         }
         if (direction == 0 && y + 1 > 19) {
             self.isGrounded = true
-            
-        } else if ((direction == 1 || direction == 3) && y + 2 > 19) {
+        }
+        if ((direction == 1 || direction == 2 || direction == 3) && y + 2 > 19) {
             self.isGrounded = true
         }
         return final

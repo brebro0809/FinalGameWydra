@@ -19,6 +19,10 @@
 		F00843A22B1E739300843324 /* FinalGameWydraUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00843A12B1E739300843324 /* FinalGameWydraUITestsLaunchTests.swift */; };
 		F044A01E2B235913002D0D99 /* TBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044A01D2B235913002D0D99 /* TBlock.swift */; };
 		F044A0202B23594A002D0D99 /* RLBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044A01F2B23594A002D0D99 /* RLBlock.swift */; };
+		F044A0222B23D61D002D0D99 /* LLBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044A0212B23D61D002D0D99 /* LLBlock.swift */; };
+		F044A0242B23EABE002D0D99 /* SQBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044A0232B23EABE002D0D99 /* SQBlock.swift */; };
+		F044A0262B23EF49002D0D99 /* STRBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044A0252B23EF49002D0D99 /* STRBlock.swift */; };
+		F044A0282B240CA0002D0D99 /* ZBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044A0272B240CA0002D0D99 /* ZBlock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,10 @@
 		F00843A12B1E739300843324 /* FinalGameWydraUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalGameWydraUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F044A01D2B235913002D0D99 /* TBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBlock.swift; sourceTree = "<group>"; };
 		F044A01F2B23594A002D0D99 /* RLBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLBlock.swift; sourceTree = "<group>"; };
+		F044A0212B23D61D002D0D99 /* LLBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLBlock.swift; sourceTree = "<group>"; };
+		F044A0232B23EABE002D0D99 /* SQBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQBlock.swift; sourceTree = "<group>"; };
+		F044A0252B23EF49002D0D99 /* STRBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STRBlock.swift; sourceTree = "<group>"; };
+		F044A0272B240CA0002D0D99 /* ZBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZBlock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +116,10 @@
 				F008437B2B1E739100843324 /* AppDelegate.swift */,
 				F008437D2B1E739100843324 /* SceneDelegate.swift */,
 				F008437F2B1E739100843324 /* ViewController.swift */,
+				F044A0272B240CA0002D0D99 /* ZBlock.swift */,
+				F044A0252B23EF49002D0D99 /* STRBlock.swift */,
+				F044A0212B23D61D002D0D99 /* LLBlock.swift */,
+				F044A0232B23EABE002D0D99 /* SQBlock.swift */,
 				F044A01F2B23594A002D0D99 /* RLBlock.swift */,
 				F044A01D2B235913002D0D99 /* TBlock.swift */,
 				F00843812B1E739100843324 /* Main.storyboard */,
@@ -267,12 +279,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F044A0262B23EF49002D0D99 /* STRBlock.swift in Sources */,
 				F00843802B1E739100843324 /* ViewController.swift in Sources */,
 				F044A0202B23594A002D0D99 /* RLBlock.swift in Sources */,
 				F008437C2B1E739100843324 /* AppDelegate.swift in Sources */,
 				F00843862B1E739100843324 /* FinalGameWydra.xcdatamodeld in Sources */,
 				F008437E2B1E739100843324 /* SceneDelegate.swift in Sources */,
+				F044A0282B240CA0002D0D99 /* ZBlock.swift in Sources */,
+				F044A0222B23D61D002D0D99 /* LLBlock.swift in Sources */,
 				F044A01E2B235913002D0D99 /* TBlock.swift in Sources */,
+				F044A0242B23EABE002D0D99 /* SQBlock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -38,9 +38,22 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let optionClosure = {(action: UIAction) in
             switch action.title {
             case "T-Block":
-                self.blocks.append(TBlock(x: 4, y: 1))
+                self.blocks.append(TBlock(x: 5, y: 1))
             case "Right L-Block":
-                self.blocks.append(RLBlock(x: 4, y: 1))
+                self.blocks.append(RLBlock(x: 5, y: 1))
+            case "Left L-Block":
+                self.blocks.append(LLBlock(x: 5, y: 1))
+            case "Square Block":
+                self.blocks.append(SQBlock(x: 5, y: 1))
+            case "Straight Block":
+                self.blocks.append(STRBlock(x: 5, y: 1))
+            case "Z-Block":
+                self.blocks.append(ZBlock(x: 5, y: 1))
+            case "Clear":
+                self.blocks = [Any]()
+                for i in 0..<200 {
+                    self.clearedCells.append(i)
+                }
             default:
                 print("AHHH")
             }
@@ -48,14 +61,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         debugButton.menu = UIMenu(children: [
             UIAction(title: "T-Block", handler: optionClosure),
-            UIAction(title: "Right L-Block", handler: optionClosure)
+            UIAction(title: "Right L-Block", handler: optionClosure),
+            UIAction(title: "Left L-Block", handler: optionClosure),
+            UIAction(title: "Square Block", handler: optionClosure),
+            UIAction(title: "Straight Block", handler: optionClosure),
+            UIAction(title: "Z-Block", handler: optionClosure),
+            UIAction(title: "Clear", handler: optionClosure)
         ])
         
         timer = Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
     }
     
-    @objc func fire() {
-        
+    func update(didFall: Bool) {
         for block in blocks {
             if let temp = block as? TBlock {
                 let position = temp.getPos()
@@ -66,6 +83,38 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 continue
             }
             if let temp = block as? RLBlock {
+                let position = temp.getPos()
+                clearedCells.append(position[0])
+                clearedCells.append(position[1])
+                clearedCells.append(position[2])
+                clearedCells.append(position[3])
+                continue
+            }
+            if let temp = block as? LLBlock {
+                let position = temp.getPos()
+                clearedCells.append(position[0])
+                clearedCells.append(position[1])
+                clearedCells.append(position[2])
+                clearedCells.append(position[3])
+                continue
+            }
+            if let temp = block as? SQBlock {
+                let position = temp.getPos()
+                clearedCells.append(position[0])
+                clearedCells.append(position[1])
+                clearedCells.append(position[2])
+                clearedCells.append(position[3])
+                continue
+            }
+            if let temp = block as? STRBlock {
+                let position = temp.getPos()
+                clearedCells.append(position[0])
+                clearedCells.append(position[1])
+                clearedCells.append(position[2])
+                clearedCells.append(position[3])
+                continue
+            }
+            if let temp = block as? ZBlock {
                 let position = temp.getPos()
                 clearedCells.append(position[0])
                 clearedCells.append(position[1])
@@ -85,8 +134,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             if let temp = block as? TBlock {
                 var position = temp.getPos()
                 
-                
-                temp.moveDown()
+                if (didFall) {
+                    temp.moveDown()
+                }
                 
                 position = temp.getPos()
                 AppDefaults.cells[position[0]] = 1
@@ -99,7 +149,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 var position = temp.getPos()
                 
                 
-                temp.moveDown()
+                if (didFall) {
+                    temp.moveDown()
+                }
                 
                 position = temp.getPos()
                 AppDefaults.cells[position[0]] = 2
@@ -108,10 +160,74 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 AppDefaults.cells[position[3]] = 2
                 continue
             }
+            if let temp = block as? LLBlock {
+                var position = temp.getPos()
+                
+                
+                if (didFall) {
+                    temp.moveDown()
+                }
+                
+                position = temp.getPos()
+                AppDefaults.cells[position[0]] = 3
+                AppDefaults.cells[position[1]] = 3
+                AppDefaults.cells[position[2]] = 3
+                AppDefaults.cells[position[3]] = 3
+                continue
+            }
+            if let temp = block as? SQBlock {
+                var position = temp.getPos()
+                
+                
+                if (didFall) {
+                    temp.moveDown()
+                }
+                
+                position = temp.getPos()
+                AppDefaults.cells[position[0]] = 4
+                AppDefaults.cells[position[1]] = 4
+                AppDefaults.cells[position[2]] = 4
+                AppDefaults.cells[position[3]] = 4
+                continue
+            }
+            if let temp = block as? STRBlock {
+                var position = temp.getPos()
+                
+                
+                if (didFall) {
+                    temp.moveDown()
+                }
+                
+                position = temp.getPos()
+                AppDefaults.cells[position[0]] = 5
+                AppDefaults.cells[position[1]] = 5
+                AppDefaults.cells[position[2]] = 5
+                AppDefaults.cells[position[3]] = 5
+                continue
+            }
+            if let temp = block as? ZBlock {
+                var position = temp.getPos()
+                
+                
+                if (didFall) {
+                    temp.moveDown()
+                }
+                
+                position = temp.getPos()
+                AppDefaults.cells[position[0]] = 6
+                AppDefaults.cells[position[1]] = 6
+                AppDefaults.cells[position[2]] = 6
+                AppDefaults.cells[position[3]] = 6
+                continue
+            }
         }
         
         
         gameBoard.reloadData()
+    }
+    
+    @objc func fire() {
+        update(didFall: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -126,6 +242,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             cell.backgroundColor = UIColor(red: 0.757, green: 0, blue: 1, alpha: 1)
         } else if (AppDefaults.cells[indexPath.item] == 2) {
             cell.backgroundColor = UIColor(red: 0.255, green: 0.408, blue: 1, alpha: 1)
+        } else if (AppDefaults.cells[indexPath.item] == 3) {
+            cell.backgroundColor = UIColor(red: 0.929, green: 0.58, blue: 0.071, alpha: 1)
+        } else if (AppDefaults.cells[indexPath.item] == 4) {
+            cell.backgroundColor = UIColor(red: 1, green: 1, blue: 0, alpha: 1)
+        } else if (AppDefaults.cells[indexPath.item] == 5) {
+            cell.backgroundColor = UIColor(red: 0, green: 1, blue: 0.961, alpha: 1)
+        } else if (AppDefaults.cells[indexPath.item] == 6) {
+            cell.backgroundColor = UIColor(red: 1, green: 0.161, blue: 0.161, alpha: 1)
         }
         
         cell.layer.borderColor = CGColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
@@ -141,6 +265,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             clearedCells.append(position[3])
             
             block.moveLeft()
+            update(didFall: false)
         }
         if let block = blocks[blocks.count - 1] as? RLBlock {
             let position = block.getPos()
@@ -150,6 +275,47 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             clearedCells.append(position[3])
             
             block.moveLeft()
+            update(didFall: false)
+        }
+        if let block = blocks[blocks.count - 1] as? LLBlock {
+            let position = block.getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+            
+            block.moveLeft()
+            update(didFall: false)
+        }
+        if let block = blocks[blocks.count - 1] as? SQBlock {
+            let position = block.getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+            
+            block.moveLeft()
+            update(didFall: false)
+        }
+        if let block = blocks[blocks.count - 1] as? STRBlock {
+            let position = block.getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+            
+            block.moveLeft()
+            update(didFall: false)
+        }
+        if let block = blocks[blocks.count - 1] as? ZBlock {
+            let position = block.getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+            
+            block.moveLeft()
+            update(didFall: false)
         }
     }
     @IBAction func rightButtonPress(_ sender: UIButton) {
@@ -161,6 +327,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             clearedCells.append(position[3])
             
             block.moveRight()
+            update(didFall: false)
         }
         if let block = blocks[blocks.count - 1] as? RLBlock {
             let position = block.getPos()
@@ -170,6 +337,47 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             clearedCells.append(position[3])
             
             block.moveRight()
+            update(didFall: false)
+        }
+        if let block = blocks[blocks.count - 1] as? LLBlock {
+            let position = block.getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+            
+            block.moveRight()
+            update(didFall: false)
+        }
+        if let block = blocks[blocks.count - 1] as? SQBlock {
+            let position = block.getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+            
+            block.moveRight()
+            update(didFall: false)
+        }
+        if let block = blocks[blocks.count - 1] as? STRBlock {
+            let position = block.getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+            
+            block.moveRight()
+            update(didFall: false)
+        }
+        if let block = blocks[blocks.count - 1] as? ZBlock {
+            let position = block.getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+            
+            block.moveRight()
+            update(didFall: false)
         }
     }
     
@@ -182,6 +390,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             clearedCells.append(position[3])
             
             block.rotate()
+            update(didFall: false)
         }
         if let block = blocks[blocks.count - 1] as? RLBlock {
             let position = block.getPos()
@@ -191,6 +400,47 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             clearedCells.append(position[3])
             
             block.rotate()
+            update(didFall: false)
+        }
+        if let block = blocks[blocks.count - 1] as? LLBlock {
+            let position = block.getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+            
+            block.rotate()
+            update(didFall: false)
+        }
+        if let block = blocks[blocks.count - 1] as? SQBlock {
+            let position = block.getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+            
+            block.rotate()
+            update(didFall: false)
+        }
+        if let block = blocks[blocks.count - 1] as? STRBlock {
+            let position = block.getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+            
+            block.rotate()
+            update(didFall: false)
+        }
+        if let block = blocks[blocks.count - 1] as? ZBlock {
+            let position = block.getPos()
+            clearedCells.append(position[0])
+            clearedCells.append(position[1])
+            clearedCells.append(position[2])
+            clearedCells.append(position[3])
+            
+            block.rotate()
+            update(didFall: false)
         }
     }
 }

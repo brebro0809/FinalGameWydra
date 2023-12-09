@@ -71,12 +71,18 @@ class RLBlock {
             if (AppDefaults.cells[y * 10 + x + 1] != 0 || AppDefaults.cells[(y + 1) * 10 + x + 1] != 0 || AppDefaults.cells[y * 10 + x - 1] != 0) {
                 return
             }
+            if(direction == 1 && x < 1) {
+                return
+            }
         case 2:
             if (AppDefaults.cells[(y - 1) * 10 + x] != 0 || AppDefaults.cells[(y + 1) * 10 + x] != 0 || AppDefaults.cells[(y + 1) * 10 + x - 1] != 0) {
                 return
             }
         case 3:
             if (AppDefaults.cells[(y - 1) * 10 + x - 1] != 0 || AppDefaults.cells[y * 10 + x - 1] != 0 || AppDefaults.cells[y * 10 + x + 1] != 0) {
+                return
+            }
+            if (direction == 3 && x + 1 > 9) {
                 return
             }
         default:
@@ -91,9 +97,10 @@ class RLBlock {
     }
     
     func moveLeft() {
-        if (direction == 0 && x - 1 < 1) {
+        if ((direction == 0 || direction == 2 || direction == 3) && x - 1 < 1) {
             return
-        } else if(direction == 1 && x < 1) {
+        }
+        if(direction == 1 && x < 1) {
             return
         }
         
@@ -103,16 +110,26 @@ class RLBlock {
         if (direction == 1 && ((AppDefaults.cells[y * 10 + x - 1] != 0) || (AppDefaults.cells[(y - 1) * 10 + x - 1] != 0) || (AppDefaults.cells[(y + 1) * 10 + x - 1] != 0))) {
             return
         }
+        if (direction == 2 && (AppDefaults.cells[y * 10 + x - 2] != 0 || AppDefaults.cells[(y + 1) * 10 + x] != 0)) {
+            return
+        }
+        if (direction == 3 && (AppDefaults.cells[(y + 1) * 10 + x - 2] != 0 || AppDefaults.cells[y * 10 + x - 1] != 0 || AppDefaults.cells[(y - 1) * 10 + x - 1] != 0)) {
+            return
+        }
         
         x -= 1
     }
     
     func moveRight() {
-        if ((direction == 0 || direction == 1) && x + 1 >= 9) {
+        if ((direction == 0 || direction == 1 || direction == 2) && x + 1 >= 9) {
             return
         }
         
-        if (direction == 0 && ((AppDefaults.cells[(y - 1) * 10 + x - 2] != 0) || (AppDefaults.cells[y * 10 + x - 2] != 0))) {
+        if (direction == 3 && x + 1 > 9) {
+            return
+        }
+        
+        if (direction == 0 && ((AppDefaults.cells[(y - 1) * 10 + x] != 0) || (AppDefaults.cells[y * 10 + x + 2] != 0))) {
             return
         }
         if (direction == 1 && ((AppDefaults.cells[(y - 1) * 10 + x + 2] != 0) || (AppDefaults.cells[(y + 1) * 10 + x + 1] != 0) || (AppDefaults.cells[y * 10 + x + 1] != 0))) {
@@ -150,6 +167,12 @@ class RLBlock {
             final.append((y + 1) * 10 + x)
             final.append((y - 1) * 10 + x)
             final.append((y + 1) * 10 + x - 1)
+        }
+        if (direction == 0 && y + 1 > 19) {
+            self.isGrounded = true
+        }
+        if ((direction == 1 || direction == 2 || direction == 3) && y + 2 > 19) {
+            self.isGrounded = true
         }
         return final
     }
