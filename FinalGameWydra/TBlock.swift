@@ -7,15 +7,24 @@
 
 import Foundation
 
-class TBlock {
+class TBlock: block {
+    func getColor() -> Int {
+        return 1
+    }
+    
     var x: Int
     var y: Int
     var isGrounded = false
     var direction = 0
+    var block0 = true
     var block1 = true
     var block2 = true
     var block3 = true
-    var block4 = true
+    var y0 = -1
+    var y1 = 0
+    var y2 = 0
+    var y3 = 0
+    
     
     init(x: Int, y: Int) {
         self.x = x
@@ -23,6 +32,10 @@ class TBlock {
     }
     
     func moveDown() {
+        if (isGrounded) {
+            return
+        }
+        
         if (direction == 0 && y + 1 > 19) {
             self.isGrounded = true
             return
@@ -30,6 +43,7 @@ class TBlock {
             self.isGrounded = true
             return
         } else if (direction == 2 && y + 2 > 19) {
+            self.isGrounded = true
             return
         }
         
@@ -90,10 +104,35 @@ class TBlock {
             print(":(")
         }
         
-        if(direction == 3){
+        if(direction == 3) {
             direction = 0
         } else {
             direction += 1
+        }
+        
+        switch direction {
+        case 0:
+            y0 = -1
+            y1 = 0
+            y2 = 0
+            y3 = 0
+        case 1:
+            y0 = 0
+            y1 = -1
+            y2 = 0
+            y3 = 1
+        case 2:
+            y0 = 1
+            y1 = 0
+            y2 = 0
+            y3 = 0
+        case 3:
+            y0 = 0
+            y1 = 1
+            y2 = 0
+            y3 = -1
+        default:
+            print(":(")
         }
     }
     
@@ -153,78 +192,79 @@ class TBlock {
         x += 1
     }
     
+    func moveLine(testY: Int) {
+        if (block0 && y + y0 < testY) {
+            y0 += 1
+        }
+        if (block1 && y + y1 < testY) {
+            y1 += 1
+        }
+        if (block2 && y + y2 < testY) {
+            y2 += 1
+        }
+        if (block3 && y + y3 < testY) {
+            y3 += 1
+        }
+    }
+    
     func removeBlocks(testY: Int) {
-        var willRemove = 0
-        if (testY == y) {
-            willRemove = 1
-        } else if (testY == y + 1) {
-            willRemove = 2
-        } else if (testY == y - 1) {
-            willRemove = 3
+        if (block0) {
+            block0 = !(y + y0 == testY)
         }
-        if (willRemove == 0) {
-            return
+        if (block1) {
+            block1 = !(y + y1 == testY)
         }
-        
-        switch direction {
-        case 0:
-            if (willRemove == 1) {
-                block2 = false
-                block3 = false
-                block4 = false
-            } else if (willRemove == 3) {
-                block1 = false
-            }
-        case 1:
-            return
-        case 2:
-            return
-        case 3:
-            return
-        default:
-            print(":(")
+        if (block2) {
+            block2 = !(y + y2 == testY)
+        }
+        if (block3) {
+            block3 = !(y + y3 == testY)
         }
     }
     
     func getBlocks() -> [Int] {
         var final = [Int]()
-        if (block1) {
+        if (block0) {
             final.append(0)
         }
-        if (block2) {
+        if (block1) {
             final.append(1)
         }
-        if (block3) {
+        if (block2) {
             final.append(2)
         }
-        if (block4) {
+        if (block3) {
             final.append(3)
         }
         return final
     }
     
+    func getGrounded() -> Bool {
+        return isGrounded
+    }
+    
     func getPos() -> [Int] {
         var final = [Int]()
         if (self.direction == 0) {
-            final.append(((y - 1) * 10) + x)
-            final.append(y * 10 + x - 1)
-            final.append(y * 10 + x)
-            final.append(y * 10 + x + 1)
+            final.append(((y + y0) * 10) + x)
+            final.append((y + y1) * 10 + x - 1)
+            final.append((y + y2) * 10 + x)
+            final.append((y + y3) * 10 + x + 1)
         } else if (self.direction == 1) {
-            final.append(y * 10 + x + 1)
-            final.append((y - 1) * 10 + x)
-            final.append(y * 10 + x)
-            final.append((y + 1) * 10 + x)
+            final.append((y + y0) * 10 + x + 1)
+            final.append((y + y1) * 10 + x)
+            final.append((y + y2) * 10 + x)
+            final.append((y + y3) * 10 + x)
         } else if (self.direction == 2) {
-            final.append(((y + 1) * 10) + x)
-            final.append(y * 10 + x + 1)
-            final.append(y * 10 + x)
-            final.append(y * 10 + x - 1)
+            final.append(((y + y0) * 10) + x)
+            final.append((y + y1) * 10 + x + 1)
+            final.append((y + y2) * 10 + x)
+            final.append((y + y3) * 10 + x - 1)
         } else if (self.direction == 3) {
-            final.append(y * 10 + x - 1)
-            final.append((y + 1) * 10 + x)
-            final.append(y * 10 + x)
-            final.append((y - 1) * 10 + x)
+            final.append((y + y0) * 10 + x - 1)
+            final.append((y + y1) * 10 + x)
+            final.append((y + y2) * 10 + x)
+            final.append((y + y3) * 10 + x)
         }
         if (direction == 0 && y + 1 > 19) {
             self.isGrounded = true

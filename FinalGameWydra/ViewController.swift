@@ -8,6 +8,19 @@
 import UIKit
 import Foundation
 
+protocol block {
+    func moveDown()
+    func rotate()
+    func moveLeft()
+    func moveRight()
+    func moveLine(testY: Int)
+    func removeBlocks(testY: Int)
+    func getBlocks() -> [Int]
+    func getPos() -> [Int]
+    func getGrounded() -> Bool
+    func getColor() -> Int
+}
+
 class AppDefaults {
     static var cells = [Int](repeating: 0, count: 200)
 }
@@ -20,7 +33,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @IBOutlet weak var debugButton: UIButton!
     
-    var blocks = [Any]()
+    var blocks = [block]()
     
     var clearedCells = [Int]()
     
@@ -50,7 +63,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             case "Z-Block":
                 self.blocks.append(ZBlock(x: 5, y: 1))
             case "Clear":
-                self.blocks = [Any]()
+                self.blocks = [block]()
                 for i in 0..<200 {
                     self.clearedCells.append(i)
                 }
@@ -70,59 +83,32 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         ])
         
         timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
+        
+        switch Int.random(in: 1...6) {
+        case 1:
+            blocks.append(TBlock(x: 5, y: 1))
+        case 2:
+            blocks.append(RLBlock(x: 5, y: 1))
+        case 3:
+            blocks.append(LLBlock(x: 5, y: 1))
+        case 4:
+            blocks.append(SQBlock(x: 5, y: 1))
+        case 5:
+            blocks.append(STRBlock(x: 5, y: 1))
+        case 6:
+            blocks.append(ZBlock(x: 5, y: 1))
+        default:
+            print(":(")
+        }
     }
     
     func update(didFall: Bool) {
         for block in blocks {
-            if let temp = block as? TBlock {
-                let position = temp.getPos()
-                let currBlocks = temp.getBlocks()
-                
-                for i in currBlocks {
-                    clearedCells.append(position[i])
-                }
-                continue
-            }
-            if let temp = block as? RLBlock {
-                let position = temp.getPos()
-                clearedCells.append(position[0])
-                clearedCells.append(position[1])
-                clearedCells.append(position[2])
-                clearedCells.append(position[3])
-                continue
-            }
-            if let temp = block as? LLBlock {
-                let position = temp.getPos()
-                clearedCells.append(position[0])
-                clearedCells.append(position[1])
-                clearedCells.append(position[2])
-                clearedCells.append(position[3])
-                continue
-            }
-            if let temp = block as? SQBlock {
-                let position = temp.getPos()
-                clearedCells.append(position[0])
-                clearedCells.append(position[1])
-                clearedCells.append(position[2])
-                clearedCells.append(position[3])
-                continue
-            }
-            if let temp = block as? STRBlock {
-                let position = temp.getPos()
-                clearedCells.append(position[0])
-                clearedCells.append(position[1])
-                clearedCells.append(position[2])
-                clearedCells.append(position[3])
-                continue
-            }
-            if let temp = block as? ZBlock {
-                let position = temp.getPos()
-                let currBlocks = temp.getBlocks()
-                
-                for i in currBlocks {
-                    clearedCells.append(position[i])
-                }
-                continue
+            let position = block.getPos()
+            let currBlocks = block.getBlocks()
+            
+            for i in currBlocks {
+                clearedCells.append(position[i])
             }
         }
         
@@ -132,92 +118,25 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         clearedCells = [Int]()
         
         for block in blocks {
+            if (didFall) {
+                block.moveDown()
+            }
             
-            if let temp = block as? TBlock {
-                if (didFall) {
-                    temp.moveDown()
-                }
-                
-                let currBlocks = temp.getBlocks()
-                let position = temp.getPos()
-                
-                for i in currBlocks {
-                    AppDefaults.cells[position[i]] = 1
-                }
-                continue
+            let currBlocks = block.getBlocks()
+            let position = block.getPos()
+            let color = block.getColor()
+            
+            for i in currBlocks {
+                print(i)
+                AppDefaults.cells[position[i]] = color
             }
-            if let temp = block as? RLBlock {
-                var position = temp.getPos()
-                
-                
-                if (didFall) {
-                    temp.moveDown()
-                }
-                
-                position = temp.getPos()
-                AppDefaults.cells[position[0]] = 2
-                AppDefaults.cells[position[1]] = 2
-                AppDefaults.cells[position[2]] = 2
-                AppDefaults.cells[position[3]] = 2
-                continue
-            }
-            if let temp = block as? LLBlock {
-                var position = temp.getPos()
-                
-                
-                if (didFall) {
-                    temp.moveDown()
-                }
-                
-                position = temp.getPos()
-                AppDefaults.cells[position[0]] = 3
-                AppDefaults.cells[position[1]] = 3
-                AppDefaults.cells[position[2]] = 3
-                AppDefaults.cells[position[3]] = 3
-                continue
-            }
-            if let temp = block as? SQBlock {
-                var position = temp.getPos()
-                
-                
-                if (didFall) {
-                    temp.moveDown()
-                }
-                
-                position = temp.getPos()
-                AppDefaults.cells[position[0]] = 4
-                AppDefaults.cells[position[1]] = 4
-                AppDefaults.cells[position[2]] = 4
-                AppDefaults.cells[position[3]] = 4
-                continue
-            }
-            if let temp = block as? STRBlock {
-                var position = temp.getPos()
-                
-                
-                if (didFall) {
-                    temp.moveDown()
-                }
-                
-                position = temp.getPos()
-                AppDefaults.cells[position[0]] = 5
-                AppDefaults.cells[position[1]] = 5
-                AppDefaults.cells[position[2]] = 5
-                AppDefaults.cells[position[3]] = 5
-                continue
-            }
-            if let temp = block as? ZBlock {
-                if (didFall) {
-                    temp.moveDown()
-                }
-                
-                let currBlocks = temp.getBlocks()
-                let position = temp.getPos()
-                
-                for i in currBlocks {
-                    AppDefaults.cells[position[i]] = 6
-                }
-                continue
+        }
+        
+        gameBoard.reloadData()
+        
+        if (blocks.count >= 1) {
+            if (!blocks[blocks.count - 1].getGrounded()) {
+                return
             }
         }
         
@@ -233,10 +152,36 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 continue
             }
             for block in blocks {
-                if let temp = block as? TBlock {
-                    temp.removeBlocks(testY: y)
-                }
+                let position = block.getPos()
+                clearedCells.append(position[0])
+                clearedCells.append(position[1])
+                clearedCells.append(position[2])
+                clearedCells.append(position[3])
+                block.removeBlocks(testY: y)
             }
+            for block in blocks {
+                block.moveLine(testY: y)
+            }
+            for x in 0...9 {
+                AppDefaults.cells[y * 10 + x] = 7
+            }
+        }
+        
+        switch Int.random(in: 1...6) {
+        case 1:
+            blocks.append(TBlock(x: 5, y: 1))
+        case 2:
+            blocks.append(RLBlock(x: 5, y: 1))
+        case 3:
+            blocks.append(LLBlock(x: 5, y: 1))
+        case 4:
+            blocks.append(SQBlock(x: 5, y: 1))
+        case 5:
+            blocks.append(STRBlock(x: 5, y: 1))
+        case 6:
+            blocks.append(ZBlock(x: 5, y: 1))
+        default:
+            print(":(")
         }
         
         gameBoard.reloadData()
@@ -266,6 +211,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             cell.backgroundColor = UIColor(red: 0, green: 1, blue: 0.961, alpha: 1)
         } else if (AppDefaults.cells[indexPath.item] == 6) {
             cell.backgroundColor = UIColor(red: 1, green: 0.161, blue: 0.161, alpha: 1)
+        } else if (AppDefaults.cells[indexPath.item] == 7) {
+            cell.backgroundColor = UIColor.white
         }
         
         cell.layer.borderColor = CGColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
@@ -273,190 +220,37 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return cell
     }
     @IBAction func leftButtonPress(_ sender: UIButton) {
-        if let block = blocks[blocks.count - 1] as? TBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.moveLeft()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? RLBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.moveLeft()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? LLBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.moveLeft()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? SQBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.moveLeft()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? STRBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.moveLeft()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? ZBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.moveLeft()
-            update(didFall: false)
-        }
+        let block = blocks[blocks.count - 1]
+        let position = block.getPos()
+        clearedCells.append(position[0])
+        clearedCells.append(position[1])
+        clearedCells.append(position[2])
+        clearedCells.append(position[3])
+        
+        block.moveLeft()
+        update(didFall: false)
     }
     @IBAction func rightButtonPress(_ sender: UIButton) {
-        if let block = blocks[blocks.count - 1] as? TBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.moveRight()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? RLBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.moveRight()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? LLBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.moveRight()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? SQBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.moveRight()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? STRBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.moveRight()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? ZBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.moveRight()
-            update(didFall: false)
-        }
+        let block = blocks[blocks.count - 1]
+        let position = block.getPos()
+        clearedCells.append(position[0])
+        clearedCells.append(position[1])
+        clearedCells.append(position[2])
+        clearedCells.append(position[3])
+        
+        block.moveRight()
+        update(didFall: false)
     }
     
     @IBAction func rotatePress(_ sender: UIButton) {
-        if let block = blocks[blocks.count - 1] as? TBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.rotate()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? RLBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.rotate()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? LLBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.rotate()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? SQBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.rotate()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? STRBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.rotate()
-            update(didFall: false)
-        }
-        if let block = blocks[blocks.count - 1] as? ZBlock {
-            let position = block.getPos()
-            clearedCells.append(position[0])
-            clearedCells.append(position[1])
-            clearedCells.append(position[2])
-            clearedCells.append(position[3])
-            
-            block.rotate()
-            update(didFall: false)
-        }
+        let block = blocks[blocks.count - 1]
+        let position = block.getPos()
+        clearedCells.append(position[0])
+        clearedCells.append(position[1])
+        clearedCells.append(position[2])
+        clearedCells.append(position[3])
+        
+        block.rotate()
+        update(didFall: false)
     }
 }
