@@ -68,6 +68,9 @@ class LLBlock {
                 return
             }
         case 1:
+            if (x < 1) {
+                return
+            }
             if (AppDefaults.cells[y * 10 + x + 1] != 0 || AppDefaults.cells[(y + 1) * 10 + x - 1] != 0 || AppDefaults.cells[y * 10 + x - 1] != 0) {
                 return
             }
@@ -76,6 +79,9 @@ class LLBlock {
                 return
             }
         case 3:
+            if (x + 1 > 9) {
+                return
+            }
             if (AppDefaults.cells[(y - 1) * 10 + x + 1] != 0 || AppDefaults.cells[y * 10 + x - 1] != 0 || AppDefaults.cells[y * 10 + x + 1] != 0) {
                 return
             }

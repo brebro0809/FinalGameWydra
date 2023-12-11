@@ -26,6 +26,10 @@ class SQBlock {
             return
         }
         
+        if (AppDefaults.cells[(y + 2) * 10 + x] != 0 || AppDefaults.cells[(y + 2) * 10 + x - 1] != 0) {
+            return
+        }
+        
         y += 1
     }
     
