@@ -69,17 +69,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             UIAction(title: "Clear", handler: optionClosure)
         ])
         
-        timer = Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
     }
     
     func update(didFall: Bool) {
         for block in blocks {
             if let temp = block as? TBlock {
                 let position = temp.getPos()
-                clearedCells.append(position[0])
-                clearedCells.append(position[1])
-                clearedCells.append(position[2])
-                clearedCells.append(position[3])
+                let currBlocks = temp.getBlocks()
+                
+                for i in currBlocks {
+                    clearedCells.append(position[i])
+                }
                 continue
             }
             if let temp = block as? RLBlock {
@@ -116,10 +117,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             }
             if let temp = block as? ZBlock {
                 let position = temp.getPos()
-                clearedCells.append(position[0])
-                clearedCells.append(position[1])
-                clearedCells.append(position[2])
-                clearedCells.append(position[3])
+                let currBlocks = temp.getBlocks()
+                
+                for i in currBlocks {
+                    clearedCells.append(position[i])
+                }
                 continue
             }
         }
@@ -132,17 +134,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         for block in blocks {
             
             if let temp = block as? TBlock {
-                var position = temp.getPos()
-                
                 if (didFall) {
                     temp.moveDown()
                 }
                 
-                position = temp.getPos()
-                AppDefaults.cells[position[0]] = 1
-                AppDefaults.cells[position[1]] = 1
-                AppDefaults.cells[position[2]] = 1
-                AppDefaults.cells[position[3]] = 1
+                let currBlocks = temp.getBlocks()
+                let position = temp.getPos()
+                
+                for i in currBlocks {
+                    AppDefaults.cells[position[i]] = 1
+                }
                 continue
             }
             if let temp = block as? RLBlock {
@@ -206,22 +207,37 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 continue
             }
             if let temp = block as? ZBlock {
-                var position = temp.getPos()
-                
-                
                 if (didFall) {
                     temp.moveDown()
                 }
                 
-                position = temp.getPos()
-                AppDefaults.cells[position[0]] = 6
-                AppDefaults.cells[position[1]] = 6
-                AppDefaults.cells[position[2]] = 6
-                AppDefaults.cells[position[3]] = 6
+                let currBlocks = temp.getBlocks()
+                let position = temp.getPos()
+                
+                for i in currBlocks {
+                    AppDefaults.cells[position[i]] = 6
+                }
                 continue
             }
         }
         
+        for y in 0..<20 {
+            var isFilled = true
+            for x in 0...9 {
+                if(AppDefaults.cells[y * 10 + x] == 0) {
+                    isFilled = false
+                    break
+                }
+            }
+            if (!isFilled) {
+                continue
+            }
+            for block in blocks {
+                if let temp = block as? TBlock {
+                    temp.removeBlocks(testY: y)
+                }
+            }
+        }
         
         gameBoard.reloadData()
     }

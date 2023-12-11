@@ -12,6 +12,10 @@ class TBlock {
     var y: Int
     var isGrounded = false
     var direction = 0
+    var block1 = true
+    var block2 = true
+    var block3 = true
+    var block4 = true
     
     init(x: Int, y: Int) {
         self.x = x
@@ -147,6 +151,56 @@ class TBlock {
         }
         
         x += 1
+    }
+    
+    func removeBlocks(testY: Int) {
+        var willRemove = 0
+        if (testY == y) {
+            willRemove = 1
+        } else if (testY == y + 1) {
+            willRemove = 2
+        } else if (testY == y - 1) {
+            willRemove = 3
+        }
+        if (willRemove == 0) {
+            return
+        }
+        
+        switch direction {
+        case 0:
+            if (willRemove == 1) {
+                block2 = false
+                block3 = false
+                block4 = false
+            } else if (willRemove == 3) {
+                block1 = false
+            }
+        case 1:
+            return
+        case 2:
+            return
+        case 3:
+            return
+        default:
+            print(":(")
+        }
+    }
+    
+    func getBlocks() -> [Int] {
+        var final = [Int]()
+        if (block1) {
+            final.append(0)
+        }
+        if (block2) {
+            final.append(1)
+        }
+        if (block3) {
+            final.append(2)
+        }
+        if (block4) {
+            final.append(3)
+        }
+        return final
     }
     
     func getPos() -> [Int] {

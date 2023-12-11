@@ -12,6 +12,10 @@ class ZBlock {
     var y: Int
     var isGrounded = false
     var direction = 0
+    var block1 = true
+    var block2 = true
+    var block3 = true
+    var block4 = true
     
     init(x: Int, y: Int) {
         self.x = x
@@ -33,7 +37,7 @@ class ZBlock {
         }
         
         if (direction == 0) {
-            if (AppDefaults.cells[(y + 1) * 10 + x] != 0 || AppDefaults.cells[(y + 1) * 10 + x - 1] != 0 || AppDefaults.cells[(y + 1) * 10 + x + 1] != 0) {
+            if (AppDefaults.cells[(y + 1) * 10 + x] != 0 || AppDefaults.cells[y * 10 + x - 1] != 0 || AppDefaults.cells[(y + 1) * 10 + x + 1] != 0) {
                 self.isGrounded = true
                 return
             }
@@ -144,6 +148,23 @@ class ZBlock {
         }
         
         x += 1
+    }
+    
+    func getBlocks() -> [Int] {
+        var final = [Int]()
+        if (block1) {
+            final.append(0)
+        }
+        if (block2) {
+            final.append(1)
+        }
+        if (block3) {
+            final.append(2)
+        }
+        if (block4) {
+            final.append(3)
+        }
+        return final
     }
     
     func getPos() -> [Int] {
