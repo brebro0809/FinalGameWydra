@@ -60,7 +60,7 @@ class ZBlock: block {
                 return
             }
         } else if (direction == 3) {
-            if (AppDefaults.cells[(y + 2) * 10 + x] != 0 || AppDefaults.cells[(y + 1) * 10 + x - 1] != 0) {
+            if (AppDefaults.cells[(y + 1) * 10 + x] != 0 || AppDefaults.cells[(y + 2) * 10 + x - 1] != 0) {
                 self.isGrounded = true
                 return
             }
@@ -80,6 +80,9 @@ class ZBlock: block {
                 return
             }
         case 1:
+            if (x - 1 < 0) {
+                return
+            }
             if (AppDefaults.cells[y * 10 + x - 1] != 0 || AppDefaults.cells[(y + 1) * 10 + x + 1] != 0) {
                 return
             }
@@ -88,6 +91,9 @@ class ZBlock: block {
                 return
             }
         case 3:
+            if (x + 1 > 9) {
+                return
+            }
             if (AppDefaults.cells[y * 10 + x + 1] != 0 || AppDefaults.cells[(y - 1) * 10 + x - 1] != 0) {
                 return
             }

@@ -31,11 +31,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var timer = Timer()
     
-    @IBOutlet weak var debugButton: UIButton!
-    
     var blocks = [block]()
     
     var clearedCells = [Int]()
+    
+    var isLost = false
+    
+    let alert = UIAlertController(title: "You Lost :(", message: "pro tip: clear more lines", preferredStyle: .alert)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,42 +48,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         gameBoard.layer.borderColor = CGColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
         gameBoard.layer.borderWidth = 4
         
-        debugButton.showsMenuAsPrimaryAction = true
-        debugButton.changesSelectionAsPrimaryAction = true
-        
-        let optionClosure = {(action: UIAction) in
-            switch action.title {
-            case "T-Block":
-                self.blocks.append(TBlock(x: 5, y: 1))
-            case "Right L-Block":
-                self.blocks.append(RLBlock(x: 5, y: 1))
-            case "Left L-Block":
-                self.blocks.append(LLBlock(x: 5, y: 1))
-            case "Square Block":
-                self.blocks.append(SQBlock(x: 5, y: 1))
-            case "Straight Block":
-                self.blocks.append(STRBlock(x: 5, y: 1))
-            case "Z-Block":
-                self.blocks.append(ZBlock(x: 5, y: 1))
-            case "Clear":
-                self.blocks = [block]()
-                for i in 0..<200 {
-                    self.clearedCells.append(i)
-                }
-            default:
-                print("AHHH")
-            }
+        let continueAction = UIAlertAction(title: "Play Again", style: .default) { (action) in
+            self.isLost = false
         }
-        
-        debugButton.menu = UIMenu(children: [
-            UIAction(title: "T-Block", handler: optionClosure),
-            UIAction(title: "Right L-Block", handler: optionClosure),
-            UIAction(title: "Left L-Block", handler: optionClosure),
-            UIAction(title: "Square Block", handler: optionClosure),
-            UIAction(title: "Straight Block", handler: optionClosure),
-            UIAction(title: "Z-Block", handler: optionClosure),
-            UIAction(title: "Clear", handler: optionClosure)
-        ])
+        alert.addAction(continueAction)
         
         timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
         
@@ -140,7 +111,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             }
         }
         
-        for y in 0..<20 {
+        for x in 0...9 {
+            if(AppDefaults.cells[x] == 0) {
+                isLost = true
+                present(alert, animated: true)
+            }
+        }
+        
+        for y in 1..<20 {
             var isFilled = true
             for x in 0...9 {
                 if(AppDefaults.cells[y * 10 + x] == 0) {
