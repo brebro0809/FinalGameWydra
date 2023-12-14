@@ -37,21 +37,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var isLost = false
     
-    let alert = UIAlertController(title: "You Lost :(", message: "pro tip: clear more lines", preferredStyle: .alert)
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        AppDefaults.cells = [Int](repeating: 0, count: 200)
+        blocks = [block]()
+        isLost = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view
         gameBoard.dataSource = self
         gameBoard.delegate = self
         gameBoard.layer.borderColor = CGColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
         gameBoard.layer.borderWidth = 4
-        
-        let continueAction = UIAlertAction(title: "Play Again", style: .default) { (action) in
-            self.isLost = false
-        }
-        alert.addAction(continueAction)
         
         timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
         
@@ -71,9 +69,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         default:
             print(":(")
         }
+        isLost = false
     }
     
     func update(didFall: Bool) {
+        if (isLost) {
+            return
+        }
+        
         for block in blocks {
             let position = block.getPos()
             let currBlocks = block.getBlocks()
@@ -105,16 +108,31 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         gameBoard.reloadData()
         
-        if (blocks.count >= 1) {
-            if (!blocks[blocks.count - 1].getGrounded()) {
+        for x in 0...9 {
+            if(AppDefaults.cells[x] != 0) {
+                isLost = true
+                let alert = UIAlertController(title: "You Lost :(", message: "pro tip: clear more lines", preferredStyle: .alert)
+                let continueAction = UIAlertAction(title: "Play Again", style: .default) { (action) in
+                    self.isLost = false
+                    self.blocks = [block]()
+                    for x in 0...199 {
+                        AppDefaults.cells[x] = 0
+                    }
+                }
+                let backAction = UIAlertAction(title: "Main Menu", style: .default) { (action) in
+                    _ = self.navigationController?.popViewController(animated: true)
+                }
+
+                alert.addAction(continueAction)
+                alert.addAction(backAction)
+                present(alert, animated: true)
                 return
             }
         }
         
-        for x in 0...9 {
-            if(AppDefaults.cells[x] == 0) {
-                isLost = true
-                present(alert, animated: true)
+        if (blocks.count >= 1) {
+            if (!blocks[blocks.count - 1].getGrounded()) {
+                return
             }
         }
         
