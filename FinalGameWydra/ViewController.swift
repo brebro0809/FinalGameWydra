@@ -5,6 +5,17 @@
 //  Created by Brian Wydra on 12/4/23.
 //
 
+// Variables: 76
+// Operators: 801
+// If/Else: 314
+// While/For Loops: 11
+// Switches: 14
+// Arrays: 2
+// Functions(Excluding Built-In): 55
+// Closures: 2
+// Optionals: 1
+// Classes: 6
+
 import UIKit
 import Foundation
 
@@ -107,6 +118,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         
         gameBoard.reloadData()
+        
+        if (!didFall) {
+            return
+        }
         
         for x in 0...9 {
             if(AppDefaults.cells[x] != 0) {
