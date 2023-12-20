@@ -18,6 +18,7 @@
 
 import UIKit
 import Foundation
+import AVFoundation
 
 protocol block {
     func moveDown()
@@ -52,6 +53,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         AppDefaults.cells = [Int](repeating: 0, count: 200)
         blocks = [block]()
         isLost = true
+        MusicPlayer.shared.stopBackgroundMusic()
     }
     
     override func viewDidLoad() {
@@ -63,6 +65,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         gameBoard.layer.borderWidth = 4
         
         timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
+        
+        MusicPlayer.shared.startBackgroundMusic()
         
         switch Int.random(in: 1...6) {
         case 1:
@@ -231,6 +235,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return cell
     }
     @IBAction func leftButtonPress(_ sender: UIButton) {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
         let block = blocks[blocks.count - 1]
         let position = block.getPos()
         clearedCells.append(position[0])
@@ -242,6 +248,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         update(didFall: false)
     }
     @IBAction func rightButtonPress(_ sender: UIButton) {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
         let block = blocks[blocks.count - 1]
         let position = block.getPos()
         clearedCells.append(position[0])
@@ -254,6 +262,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     @IBAction func rotatePress(_ sender: UIButton) {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.warning)
         let block = blocks[blocks.count - 1]
         let position = block.getPos()
         clearedCells.append(position[0])
@@ -263,5 +273,29 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         block.rotate()
         update(didFall: false)
+    }
+}
+
+class MusicPlayer {
+    static let shared = MusicPlayer()
+    var audioPlayer: AVAudioPlayer?
+
+    func startBackgroundMusic() {
+        if let bundle = Bundle.main.path(forResource: "backgroundMusic", ofType: "mp3") {
+            let backgroundMusic = NSURL(fileURLWithPath: bundle)
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf:backgroundMusic as URL)
+                guard let audioPlayer = audioPlayer else { return }
+                audioPlayer.numberOfLoops = -1
+                audioPlayer.prepareToPlay()
+                audioPlayer.play()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    func stopBackgroundMusic() {
+        guard let audioPlayer = audioPlayer else { return }
+        audioPlayer.stop()
     }
 }
